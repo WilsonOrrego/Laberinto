@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3659895601573199388}
   - component: {fileID: 5658436063483883620}
   - component: {fileID: 6513928569335788235}
+  - component: {fileID: 6646840083618441752}
+  - component: {fileID: 1399471864849486846}
   m_Layer: 0
   m_Name: rust_key
   m_TagString: Untagged
@@ -26,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4083945063275106125}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.72397304, y: 0.1466502, z: 0.14569117, w: 0.6581269}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.72397304, y: 0.14665018, z: 0.14569117, w: 0.65812683}
+  m_LocalPosition: {x: 0.57499504, y: 2.5718207, z: -26.311909}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -86,3 +88,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6646840083618441752
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4083945063275106125}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.12193203, y: 0.039105896, z: 0.23262416}
+  m_Center: {x: -3.2569433e-16, y: -9.313227e-10, z: 0.0000000037252916}
+--- !u!114 &1399471864849486846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4083945063275106125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e1b46b815c26dc4db21f14ba5f16952, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyUI: {fileID: 0}

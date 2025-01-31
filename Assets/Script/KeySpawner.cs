@@ -1,14 +1,19 @@
 using UnityEngine;
+using System.Collections; 
+using TMPro; // Importar TextMeshPro
 
 public class KeySpawner : MonoBehaviour
 {
-    public GameObject keyPrefab;  //Prefab de la llave
+    public GameObject keyPrefab;  // Prefab de la llave
     public Transform[] spawnPoints;  // Puntos para el spawner
+    public GameObject keyUI; // Referencia a la imagen de la llave en el Canvas
+    public TextMeshProUGUI messageText; // Referencia al texto en el Canvas (debe ser public)
 
-    public float levitationHeight = 0.5f;  // Altura del movimiento de levitaciÛn
-    public float levitationSpeed = 2f;     // Velocidad de movimiento de levitaciÛn
+    public float levitationHeight = 0.5f;  // Altura del movimiento de levitaci√≥n
+    public float levitationSpeed = 2f;     // Velocidad de levitaci√≥n
 
     private GameObject currentKey;  // Referencia a la llave generada
+    private Coroutine levitationCoroutine; // Guarda la corrutina de levitaci√≥n
 
     void Start()
     {
@@ -27,22 +32,29 @@ public class KeySpawner : MonoBehaviour
         int randomIndex = Random.Range(0, spawnPoints.Length);
         Vector3 spawnPosition = spawnPoints[randomIndex].position;
 
-        // Crear la llave en la posiciÛn aleatoria
+        // Crear la llave en la posici√≥n aleatoria
         currentKey = Instantiate(keyPrefab, spawnPosition, Quaternion.identity);
 
-        // Iniciar levitaciÛn de la llave
-        StartCoroutine(LevitatingKey(currentKey));
+        // Asignar la UI de la llave al nuevo objeto
+        KeyPickup keyScript = currentKey.GetComponent<KeyPickup>();
+        if (keyScript != null)
+        {
+            keyScript.SetKeyUI(keyUI, messageText); // Pasar la UI de la llave y el texto al script de la llave
+        }
+
+        // Iniciar levitaci√≥n de la llave
+        levitationCoroutine = StartCoroutine(LevitatingKey(currentKey));
     }
 
-    private System.Collections.IEnumerator LevitatingKey(GameObject key)
+    private IEnumerator LevitatingKey(GameObject key)
     {
         Vector3 startPosition = key.transform.position;
 
-        while (true)  // Esto har· que la llave se mueva indefinidamente
+        while (key != null) // Verifica que la llave a√∫n existe
         {
             float newY = Mathf.Sin(Time.time * levitationSpeed) * levitationHeight;
             key.transform.position = new Vector3(startPosition.x, startPosition.y + newY, startPosition.z);
-            yield return null;  // Espera al siguiente cuadro
+            yield return null;
         }
     }
 }
