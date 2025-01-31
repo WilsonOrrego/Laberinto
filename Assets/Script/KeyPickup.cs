@@ -1,35 +1,45 @@
 using UnityEngine;
-using TMPro; // Asegúrate de importar este espacio de nombres
+using TMPro; 
+using System.Collections; 
 
 public class KeyPickup : MonoBehaviour
 {
     private GameObject keyUI;
-    private TextMeshProUGUI messageText; // Declaramos la referencia al texto
+    private TextMeshProUGUI messageText;
+    private GameObject bridge;
 
-    // Método para recibir las referencias
-    public void SetKeyUI(GameObject uiKey, TextMeshProUGUI uiText)
+    public void SetKeyUI(GameObject uiKey, TextMeshProUGUI uiText, GameObject bridgeObject)
     {
         keyUI = uiKey;
-        keyUI.SetActive(false); // Inicialmente, la llave no está visible en el Canvas
+        keyUI.SetActive(false); //Ocultar la llave al inicio
         messageText = uiText;
+        bridge = bridgeObject;
+        bridge.SetActive(false); //Ocultar puente al inicio
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            // Mostrar la llave en el UI
+            //Mostrar la llave
             if (keyUI != null)
                 keyUI.SetActive(true);
 
-            // Cambiar el texto cuando la llave es recogida
-            if (messageText != null)
-                messageText.text = "¡Ve al centro del laberinto!";  // Cambiar el mensaje al ser recogida
 
-            // Destruir la llave del mundo 3D
+            if (messageText != null)
+            {
+                messageText.text = "Sube la rampa junto al Árbol para finalizar.";
+            }
+
+            //Activar el puente
+            if (bridge != null)
+                bridge.SetActive(true);
+
+            //Destruir la llave
             Destroy(gameObject);
         }
     }
+
 }
 
 

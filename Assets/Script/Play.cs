@@ -5,7 +5,7 @@ public class MenuManager : MonoBehaviour
 {
     public void StartGame(string NOmbredelnivel)
     {
-        // Carga una nueva escena del laberinto
+        //Carga la escena del laberinto
         SceneManager.LoadScene(NOmbredelnivel);
     }
 }

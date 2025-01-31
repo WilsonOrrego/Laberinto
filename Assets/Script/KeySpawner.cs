@@ -1,19 +1,20 @@
 using UnityEngine;
-using System.Collections; 
-using TMPro; // Importar TextMeshPro
+using System.Collections;
+using TMPro;
 
 public class KeySpawner : MonoBehaviour
 {
-    public GameObject keyPrefab;  // Prefab de la llave
-    public Transform[] spawnPoints;  // Puntos para el spawner
-    public GameObject keyUI; // Referencia a la imagen de la llave en el Canvas
-    public TextMeshProUGUI messageText; // Referencia al texto en el Canvas (debe ser public)
+    public GameObject keyPrefab;  //llave
+    public Transform[] spawnPoints;  //Puntos para el spawner
+    public GameObject keyUI; // Img del canvas
+    public TextMeshProUGUI messageText; //Texto en el Canvas
+    public GameObject bridge;
 
-    public float levitationHeight = 0.5f;  // Altura del movimiento de levitación
-    public float levitationSpeed = 2f;     // Velocidad de levitación
+    public float levitationHeight = 0.5f;  //Altura del movimiento de levitación
+    public float levitationSpeed = 2f;     //Velocidad de levitación
 
-    private GameObject currentKey;  // Referencia a la llave generada
-    private Coroutine levitationCoroutine; // Guarda la corrutina de levitación
+    private GameObject currentKey;  //llave generada
+    private Coroutine levitationCoroutine; //Guarda la corrutina de levitación
 
     void Start()
     {
@@ -28,21 +29,21 @@ public class KeySpawner : MonoBehaviour
             return;
         }
 
-        // Seleccionar punto aleatorio
+        //Selecciona un punto aleatorio
         int randomIndex = Random.Range(0, spawnPoints.Length);
         Vector3 spawnPosition = spawnPoints[randomIndex].position;
 
-        // Crear la llave en la posición aleatoria
+        //Crear la llave en la posición aleatoria
         currentKey = Instantiate(keyPrefab, spawnPosition, Quaternion.identity);
 
-        // Asignar la UI de la llave al nuevo objeto
+        //Asignar la UI de la llave y el puente
         KeyPickup keyScript = currentKey.GetComponent<KeyPickup>();
         if (keyScript != null)
         {
-            keyScript.SetKeyUI(keyUI, messageText); // Pasar la UI de la llave y el texto al script de la llave
+            keyScript.SetKeyUI(keyUI, messageText, bridge);
         }
 
-        // Iniciar levitación de la llave
+        //Iniciar levitación
         levitationCoroutine = StartCoroutine(LevitatingKey(currentKey));
     }
 
@@ -50,7 +51,7 @@ public class KeySpawner : MonoBehaviour
     {
         Vector3 startPosition = key.transform.position;
 
-        while (key != null) // Verifica que la llave aún existe
+        while (key != null) //Verifica la existencia de la llave
         {
             float newY = Mathf.Sin(Time.time * levitationSpeed) * levitationHeight;
             key.transform.position = new Vector3(startPosition.x, startPosition.y + newY, startPosition.z);
@@ -58,3 +59,4 @@ public class KeySpawner : MonoBehaviour
         }
     }
 }
+
